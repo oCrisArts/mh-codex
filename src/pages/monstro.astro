@@ -1,13 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getMonsterById } from '../data/monsters.ts';
+import { getCollection } from 'astro:content';
 
 // Get monster ID from URL
 const url = new URL(Astro.request.url);
 const monsterId = url.searchParams.get('id');
 
+// Get monsters from Content Collections
+const monstersEntries = await getCollection('monsters');
+const monsters = monstersEntries.map(m => m.data);
+
 // Get monster data
-const monster = monsterId ? getMonsterById(parseInt(monsterId)) : null;
+const monster = monsterId ? monsters.find(m => m.id === parseInt(monsterId)) : null;
 
 // If no monster found, redirect to search page
 if (!monster) {

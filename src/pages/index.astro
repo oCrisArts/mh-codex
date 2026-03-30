@@ -1,33 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import monstersDataRaw from '../data/monsters.json';
+import { getCollection } from 'astro:content';
 import Navigation from '../components/Navigation.astro';
 import Header from '../components/Header.astro';
 import MonsterCard from '../components/MonsterCard.astro';
 import FilterPanel from '../components/FilterPanel.astro';
 
-// Type definition for monster
-interface Monster {
-  id: number;
-  name: string;
-  rank: 'low-rank' | 'high-rank' | 'master-rank' | 'arch-tempered' | 'terras-guias';
-  type: string;
-  weaknesses: string[];
-  recommendedGlaive: string;
-  materials: string[];
-  description: string;
-  stats: {
-    health: string;
-    attack: string;
-    defense: string;
-  };
-  habitat: string[];
-  behavior: string[];
-  image?: string;
-  icon?: string;
-}
-
-const monsters = monstersDataRaw as Monster[];
+// Get monsters from Content Collections
+const monstersEntries = await getCollection('monsters');
+const monsters = monstersEntries.map(m => m.data);
 ---
 
 <Layout title="Monster Hunter Codex">
@@ -83,127 +64,99 @@ const monsters = monstersDataRaw as Monster[];
     overlay?.addEventListener('click', closeFilterPanel);
 
     // Rank filter options
-    const rankOptions = document.querySelectorAll('input[name="rank"]');
+    const rankOptions = document.querySelectorAll('.dshunter-filter-option');
     rankOptions.forEach(option => {
-      option.addEventListener('change', (e) => {
-        selectedRank = (e.target as HTMLInputElement).value;
-        performSearch();
+      option.addEventListener('click', (e) => {
+        const target = e.currentTarget as HTMLElement;
+        const rank = target.dataset.rank;
+        if (rank) {
+          selectedRank = rank;
+          updateActiveFilters();
+          renderMonsters();
+        }
       });
     });
 
     // Search functionality
-    const searchBar = document.querySelector('.dshunter-search-bar');
-    searchBar?.addEventListener('click', () => {
-      const searchTerm = prompt('Buscar monstro:');
-      if (searchTerm) {
-        performSearchByName(searchTerm);
+    const searchInput = document.querySelector('.dshunter-search-bar');
+    if (searchInput) {
+      searchInput.addEventListener('click', () => {
+        const prompt = window.prompt('Buscar monstro:');
+        if (prompt) {
+          performSearch(prompt);
+        }
+      });
+    }
+  }
+
+  // Filter panel functions
+  function openFilterPanel() {
+    filterPanel?.classList.add('is-active');
+    overlay?.classList.add('is-active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFilterPanel() {
+    filterPanel?.classList.remove('is-active');
+    overlay?.classList.remove('is-active');
+    document.body.style.overflow = '';
+  }
+
+  // Update active filters display
+  function updateActiveFilters() {
+    const activeFiltersContainer = document.querySelector('.dshunter-active-filters');
+    if (!activeFiltersContainer) return;
+
+    activeFiltersContainer.innerHTML = '';
+
+    if (selectedRank !== 'all') {
+      const filterTag = document.createElement('span');
+      filterTag.className = 'dshunter-filter-tag';
+      filterTag.innerHTML = `
+        Rank: ${selectedRank}
+        <button class="dshunter-filter-remove" data-type="rank">×</button>
+      `;
+      activeFiltersContainer.appendChild(filterTag);
+
+      // Add remove event listener
+      const removeBtn = filterTag.querySelector('.dshunter-filter-remove');
+      removeBtn?.addEventListener('click', () => {
+        selectedRank = 'all';
+        updateActiveFilters();
+        renderMonsters();
+      });
+    }
+  }
+
+  // Search functionality
+  function performSearch(query: string) {
+    const searchTerm = query.toLowerCase();
+    const monsterCards = document.querySelectorAll('.dshunter-monster-card');
+    
+    monsterCards.forEach(card => {
+      const monsterName = card.querySelector('.dshunter-monster-name')?.textContent?.toLowerCase() || '';
+      const monsterType = card.querySelector('.dshunter-monster-type')?.textContent?.toLowerCase() || '';
+      
+      if (monsterName.includes(searchTerm) || monsterType.includes(searchTerm)) {
+        (card as HTMLElement).style.display = '';
+      } else {
+        (card as HTMLElement).style.display = 'none';
       }
     });
   }
 
-  // Filter panel controls
-  function openFilterPanel() {
-    filterPanel?.classList.add('open');
-    overlay?.classList.add('show');
-  }
-
-  function closeFilterPanel() {
-    filterPanel?.classList.remove('open');
-    overlay?.classList.remove('show');
-  }
-
-  // Perform search by rank
-  function performSearch() {
-    let filteredMonsters = monsters;
-
-    // Filter by rank
-    if (selectedRank !== 'all') {
-      filteredMonsters = filteredMonsters.filter(monster => 
-        monster.rank === selectedRank
-      );
-    }
-
-    renderMonsters(filteredMonsters);
-  }
-
-  // Perform search by name
-  function performSearchByName(searchTerm: string) {
-    const filteredMonsters = monsters.filter(monster => 
-      monster.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    renderMonsters(filteredMonsters);
-  }
-
-  // Render monsters
-  function renderMonsters(monstersList: typeof monsters) {
-    const article = document.querySelector('.dshunter-article');
-    if (!article) return;
-
-    article.innerHTML = monstersList.map(monster => `
-      <a href="/monstro?id=${monster.id}" class="dshunter-card">
-        <!-- Card Header -->
-        <div class="dshunter-card-header">
-          <div class="dshunter-card-title">
-            <h3>${monster.name}</h3>
-          </div>
-          <div class="dshunter-card-icon">
-            <div class="dshunter-icon-wrapper">
-              <img src="${monster.image || '/imgs/monsters/placeholder.jpg'}" alt="${monster.name}" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Card Footer -->
-        <div class="dshunter-card-footer">
-          <div class="dshunter-card-type">
-            <div class="dshunter-type-icon">${getMonsterTypeIcon(monster.type)}</div>
-            <div class="dshunter-type-name">${getMonsterTypeName(monster.type)}</div>
-          </div>
-        </div>
-
-        <!-- Card Image Background -->
-        <div class="dshunter-card-image">
-          <div class="dshunter-image-filter"></div>
-          <div class="dshunter-image-wrapper">
-            <img src="${monster.image || '/imgs/monsters/placeholder.jpg'}" alt="${monster.name}" />
-          </div>
-        </div>
-      </a>
-    `).join('');
-  }
-
-  // Helper functions
-  function getMonsterTypeIcon(type: string): string {
-    const typeIcons: Record<string, string> = {
-      'elder-dragon': '',
-      'fanged-beast': '',
-      'flying-wyvern': '',
-      'brute-wyvern': '',
-      'leviathan': '',
-      'piscine-wyvern': '',
-      'bird-wyvern': '',
-      'carapaceon': '',
-      'neopteron': '',
-      'temnoceran': '',
-      'skavern': ''
-    };
-    return typeIcons[type] || '';
-  }
-
-  function getMonsterTypeName(type: string): string {
-    const typeNames: Record<string, string> = {
-      'elder-dragon': 'Elder Dragon',
-      'fanged-beast': 'Fanged Beast',
-      'flying-wyvern': 'Flying Wyvern',
-      'brute-wyvern': 'Brute Wyvern',
-      'leviathan': 'Leviathan',
-      'piscine-wyvern': 'Piscine Wyvern',
-      'bird-wyvern': 'Bird Wyvern',
-      'carapaceon': 'Carapaceon',
-      'neopteron': 'Neopteron',
-      'temnoceran': 'Temnoceran',
-      'skavern': 'Skavern'
-    };
-    return typeNames[type] || 'Elder Dragon';
+  // Render monsters based on current filters
+  function renderMonsters() {
+    const monsterCards = document.querySelectorAll('.dshunter-monster-card');
+    
+    monsterCards.forEach(card => {
+      const monsterRank = (card as HTMLElement).dataset.rank;
+      
+      if (selectedRank === 'all' || monsterRank === selectedRank) {
+        (card as HTMLElement).style.display = '';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
   }
 </script>
