@@ -1,0 +1,110 @@
+// Main SCSS file for Monster Hunter Codex
+// Import design tokens and configure Bulma
+
+// Import design tokens
+@import 'design-tokens';
+
+// Import layout styles
+@import 'layout';
+
+// Import and configure Bulma
+@import 'bulma/sass/utilities/initial-variables';
+@import 'bulma/sass/utilities/functions';
+
+// Override Bulma variables with our design tokens
+$family-primary: $dsSH-font-family-primary;
+$family-sans-serif: $dsSH-font-family-primary;
+
+// Colors
+$primary-invert: $dsSH-bulma-primary-invert;
+$info-invert: $dsSH-bulma-info-invert;
+$success-invert: $dsSH-bulma-success-invert;
+$warning-invert: $dsSH-bulma-warning-invert;
+$danger-invert: $dsSH-bulma-danger-invert;
+$white: $dsSH-color-white;
+$black: $dsSH-color-black;
+$grey-lighter: $dsSH-colors-palette-gray-50;
+$grey-light: $dsSH-colors-palette-gray-100;
+$grey: $dsSH-colors-palette-gray-200;
+$dark: $dsSH-colors-palette-gray-800;
+$primary: $dsSH-bulma-primary;
+$info: $dsSH-bulma-info;
+$success: $dsSH-bulma-success;
+$warning: $dsSH-bulma-warning;
+$danger: $dsSH-bulma-danger;
+
+// Typography
+$size-1: $dsSH-font-size-4xl;
+$size-3: $dsSH-font-size-2xl;
+$size-4: $dsSH-font-size-xl;
+$size-5: $dsSH-font-size-lg;
+$size-6: $dsSH-font-size-base;
+$size-7: $dsSH-font-size-sm;
+
+$weight-light: $dsSH-font-weight-light;
+$weight-normal: $dsSH-font-weight-normal;
+$weight-medium: $dsSH-font-weight-medium;
+$weight-semibold: $dsSH-font-weight-semibold;
+$weight-bold: $dsSH-font-weight-bold;
+
+// Spacing
+$gap: $dsSH-space-8;
+$spacing-large: $dsSH-space-12;
+
+// Border radius
+$radius: $dsSH-radius-base;
+$radius-large: $dsSH-radius-lg;
+
+// Box shadow
+$box-shadow: $dsSH-shadow-base;
+
+// Import Bulma
+@import 'bulma/bulma';
+
+// Import page styles
+@import 'pages/home';
+
+// Import component styles
+@import 'components/navigation';
+@import 'components/header';
+@import 'components/monster-card';
+@import 'components/filter-panel';
+
+// Legacy components (keep for compatibility)
+@import 'components/modal';
+@import 'components/tabs';
+@import 'components/search';
+
+// Import utilities and icons
+@import 'utilities/animations';
+@import 'rpg-awesome';
+@import 'rpg-icons';
+
+// Global styles
+body {
+  background-color: $dsSH-bg-app;
+  color: $dsSH-text-main;
+  font-family: $dsSH-font-family-primary;
+}
+
+// Responsive utilities
+.is-mobile-only {
+  @media screen and (min-width: 480px) {
+    display: none !important;
+  }
+}
+
+.is-tablet-only {
+  @media screen and (max-width: 479px) {
+    display: none !important;
+  }
+  @media screen and (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.is-desktop-only {
+  @media screen and (max-width: 767px) {
+    display: none !important;
+  }
+}

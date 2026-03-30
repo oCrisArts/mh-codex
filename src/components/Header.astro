@@ -1,0 +1,22 @@
+---
+interface Props {
+  title?: string;
+  showVideo?: boolean;
+}
+
+const { title = "Encontre tudo para a sua caçada.", showVideo = true } = Astro.props;
+---
+{showVideo && (
+  <header class="dshunter-header">
+    <div class="dshunter-col">
+      <h1 class="dshunter-title">{title}</h1>
+    </div>
+    <div class="dshunter-col"></div>
+    <div class="dshunter-bg">
+      <video autoplay muted loop playsinline class="dshunter-bg-video">
+        <source src="/videos/bg-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+    </div>
+  </header>
+)}

@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "name": "Anjanath",
+    "rank": "low-rank",
+    "type": "flying-wyvern",
+    "weaknesses": ["water", "ice", "poison"],
+    "recommendedGlaive": "Insect Glaive + (Agua)",
+    "materials": ["Escama de Anjanath", "Pele de Anjanath", "Garra de Anjanath"],
+    "description": "Um monstro semelhante a um tiranossauro com asas de morcego.",
+    "stats": {
+      "health": "4000",
+      "attack": "1200",
+      "defense": "800"
+    },
+    "habitat": ["Floresta Antiga", "Ervamos Selvagens"],
+    "behavior": ["Agressivo", "Territorial"],
+    "image": "/imgs/monsters/anjanath.jpg",
+    "icon": "/imgs/icons/anjanath.png"
+  },
+  {
+    "id": 2,
+    "name": "Barroth",
+    "rank": "low-rank",
+    "type": "brute-wyvern",
+    "weaknesses": ["fire", "thunder", "ice"],
+    "recommendedGlaive": "Insect Glaive + (Fogo)",
+    "materials": ["Carapaca de Barroth", "Lama de Barroth", "Chifre de Barroth"],
+    "description": "Um wyvern brutal que usa lama para se proteger e atacar.",
+    "stats": {
+      "health": "3500",
+      "attack": "900",
+      "defense": "900"
+    },
+    "habitat": ["Ervamos Selvagens", "Floresta Antiga"],
+    "behavior": ["Defensivo", "Lancador de Lama"],
+    "image": "/imgs/monsters/barroth.jpg",
+    "icon": "/imgs/icons/barroth.png"
+  }
+]

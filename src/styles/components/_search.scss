@@ -1,0 +1,61 @@
+// Search button styles for monster cards
+
+.search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: 8px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.search-icon {
+  font-size: 1.2em;
+}
+
+// Responsive Design
+@media screen and (max-width: 768px) {
+  .search-btn {
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search-btn {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    gap: 4px;
+  }
+}
+
+// Accessibility
+@media (prefers-reduced-motion: reduce) {
+  .search-btn {
+    transition: none;
+  }
+  
+  .search-btn:hover {
+    transform: none;
+  }
+}

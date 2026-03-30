@@ -1,0 +1,29 @@
+---
+interface Props {
+  showSearch?: boolean;
+  showFilters?: boolean;
+  searchTerm?: string;
+}
+
+const { showSearch = true, showFilters = true, searchTerm = "Encontrar mostro" } = Astro.props;
+---
+
+<nav class="dshunter-navbar">
+  {showSearch && (
+    <div class="dshunter-search-bar">
+      <div class="dshunter-search-text">{searchTerm}</div>
+      <div class="dshunter-search-icon">search</div>
+    </div>
+  )}
+  
+  {showFilters && (
+    <button class="dshunter-filter-btn">
+      <span class="dshunter-filter-label">Filtros</span>
+      <span class="dshunter-filter-icon">filter</span>
+    </button>
+  )}
+  
+  <div class="dshunter-brand">
+    <img src="/img/mh-codex.brand.svg" alt="Monster Hunter Codex" />
+  </div>
+</nav>

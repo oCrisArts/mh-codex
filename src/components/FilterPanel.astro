@@ -1,0 +1,43 @@
+---
+interface Props {
+  isOpen?: boolean;
+}
+
+const { isOpen = false } = Astro.props;
+---
+
+<aside class={`dshunter-filter-panel ${isOpen ? 'open' : ''}`} id="filterPanel">
+  <div class="dshunter-filter-panel-content">
+    <div class="dshunter-filter-panel-header">
+      <h3>Filtros</h3>
+      <button class="dshunter-panel-close" id="panelClose">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <div class="dshunter-filter-section">
+      <h4>Rank do Monstro</h4>
+      <div class="dshunter-filter-options">
+        <label class="dshunter-filter-option">
+          <input type="radio" name="rank" value="all" checked />
+          <span>Todos</span>
+        </label>
+        <label class="dshunter-filter-option">
+          <input type="radio" name="rank" value="low-rank" />
+          <span>Baixo</span>
+        </label>
+        <label class="dshunter-filter-option">
+          <input type="radio" name="rank" value="high-rank" />
+          <span>Alto</span>
+        </label>
+        <label class="dshunter-filter-option">
+          <input type="radio" name="rank" value="master-rank" />
+          <span>Master</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Overlay for filter panel -->
+<div class={`dshunter-overlay ${isOpen ? 'show' : ''}`} id="overlay"></div>

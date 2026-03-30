@@ -1,0 +1,173 @@
+// RPG Icons - Monster Hunter Specific Icons
+// Using RPG Awesome font for fantasy themed icons
+
+// Monster Weakness Icons
+.rpg-weakness {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin: 0 2px;
+  font-family: 'RPG Awesome', sans-serif;
+  font-size: 16px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  
+  &.fire {
+    color: #c43c3c;
+    &:before { content: "\f002"; } // Fire icon
+  }
+  
+  &.water {
+    color: #2993c4;
+    &:before { content: "\f003"; } // Water icon
+  }
+  
+  &.thunder {
+    color: #f5cf09;
+    &:before { content: "\f004"; } // Thunder icon
+  }
+  
+  &.ice {
+    color: #5bb2e2;
+    &:before { content: "\f005"; } // Ice icon
+  }
+  
+  &.dragon {
+    color: #9775fa;
+    &:before { content: "\f006"; } // Dragon icon
+  }
+  
+  &.poison {
+    color: #69db7c;
+    &:before { content: "\f007"; } // Poison icon
+  }
+  
+  &.sleep {
+    color: #a78bfa;
+    &:before { content: "\f008"; } // Sleep icon
+  }
+  
+  &.paralysis {
+    color: #ffd93d;
+    &:before { content: "\f009"; } // Paralysis icon
+  }
+  
+  &.blast {
+    color: #ff8787;
+    &:before { content: "\f010"; } // Blast icon
+  }
+  
+  &.stun {
+    color: #868e96;
+    &:before { content: "\f011"; } // Stun icon
+  }
+}
+
+// Monster Type Icons
+.rpg-type {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: 'RPG Awesome', sans-serif;
+  font-size: 20px;
+  border-radius: 50%;
+  background-color: rgba(41, 147, 196, 0.1);
+  color: #2993c4;
+  
+  &.flying-wyvern {
+    &:before { content: "\f020"; } // Wing icon
+  }
+  
+  &.fanged-beast {
+    &:before { content: "\f021"; } // Fang icon
+  }
+  
+  &.brute-wyvern {
+    &:before { content: "\f022"; } // Shield icon
+  }
+  
+  &.bird-wyvern {
+    &:before { content: "\f023"; } // Feather icon
+  }
+  
+  &.piscine-wyvern {
+    &:before { content: "\f024"; } // Water icon
+  }
+  
+  &.fanged-wyvern {
+    &:before { content: "\f025"; } // Claw icon
+  }
+  
+  &.elder-dragon {
+    &:before { content: "\f030"; } // Crown icon
+  }
+}
+
+// Weapon Icons
+.rpg-weapon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-family: 'RPG Awesome', sans-serif;
+  font-size: 18px;
+  color: #0f191e;
+  
+  &.insect-glaive {
+    &:before { content: "\f040"; } // Glaive icon
+  }
+  
+  &.sword {
+    &:before { content: "\f041"; } // Sword icon
+  }
+  
+  &.hammer {
+    &:before { content: "\f042"; } // Hammer icon
+  }
+}
+
+// Responsive Design
+@media screen and (max-width: 768px) {
+  .rpg-weakness {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+  
+  .rpg-type {
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+  }
+  
+  .rpg-weapon {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .rpg-weakness {
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+  }
+  
+  .rpg-type {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+  }
+  
+  .rpg-weapon {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+}

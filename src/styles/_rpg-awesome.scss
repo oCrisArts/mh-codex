@@ -1,0 +1,220 @@
+// RPG Awesome Font Integration
+// Font: RPG Awesome - Fantasy themed icon font
+// Source: https://nagoshiashumari.github.io/Rpg-Awesome/
+
+@font-face {
+  font-family: 'RPG Awesome';
+  src: url('/fonts/rpgawesome-webfont.eot?v=4.1.0');
+  src: url('/fonts/rpgawesome-webfont.eot?#iefix&v=4.1.0') format('embedded-opentype'),
+       url('/fonts/rpgawesome-webfont.woff2?v=4.1.0') format('woff2'),
+       url('/fonts/rpgawesome-webfont.woff?v=4.1.0') format('woff'),
+       url('/fonts/rpgawesome-webfont.ttf?v=4.1.0') format('truetype'),
+       url('/fonts/rpgawesome-webfont.svg?v=4.1.0#rpgawesome') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+// RPG Awesome Icon Base Class
+.rpg {
+  display: inline-block;
+  font: normal normal normal 14px/1 'RPG Awesome';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// RPG Awesome Icon Sizes
+.rpg-xs { font-size: 0.75em; }
+.rpg-sm { font-size: 0.875em; }
+.rpg-lg { font-size: 1.25em; }
+.rpg-2x { font-size: 1.5em; }
+.rpg-3x { font-size: 2em; }
+.rpg-4x { font-size: 2.5em; }
+.rpg-5x { font-size: 3em; }
+
+// RPG Awesome Fixed Width
+.rpg-fw {
+  width: 1.2857142857142858em;
+  text-align: center;
+}
+
+// Monster Hunter Specific RPG Icons
+.rpg-dragon { 
+  &:before { content: "\f001"; }
+}
+
+.rpg-fire { 
+  &:before { content: "\f002"; }
+}
+
+.rpg-water { 
+  &:before { content: "\f003"; }
+}
+
+.rpg-thunder { 
+  &:before { content: "\f004"; }
+}
+
+.rpg-ice { 
+  &:before { content: "\f005"; }
+}
+
+.rpg-dragon { 
+  &:before { content: "\f006"; }
+}
+
+.rpg-poison { 
+  &:before { content: "\f007"; }
+}
+
+.rpg-sleep { 
+  &:before { content: "\f008"; }
+}
+
+.rpg-paralysis { 
+  &:before { content: "\f009"; }
+}
+
+.rpg-blast { 
+  &:before { content: "\f00a"; }
+}
+
+// Weapon Icons
+.rpg-sword { 
+  &:before { content: "\f00b"; }
+}
+
+.rpg-shield { 
+  &:before { content: "\f00c"; }
+}
+
+.rpg-bow { 
+  &:before { content: "\f00d"; }
+}
+
+.rpg-dagger { 
+  &:before { content: "\f00e"; }
+}
+
+.rpg-hammer { 
+  &:before { content: "\f00f"; }
+}
+
+.rpg-staff { 
+  &:before { content: "\f010"; }
+}
+
+// Item Icons
+.rpg-potion { 
+  &:before { content: "\f011"; }
+}
+
+.rpg-elixir { 
+  &:before { content: "\f012"; }
+}
+
+.rpg-herb { 
+  &:before { content: "\f013"; }
+}
+
+.rpg-mushroom { 
+  &:before { content: "\f014"; }
+}
+
+.rpg-crystal { 
+  &:before { content: "\f015"; }
+}
+
+// Status Icons
+.rpg-heart { 
+  &:before { content: "\f016"; }
+}
+
+.rpg-star { 
+  &:before { content: "\f017"; }
+}
+
+.rpg-skull { 
+  &:before { content: "\f018"; }
+}
+
+.rpg-crown { 
+  &:before { content: "\f019"; }
+}
+
+.rpg-key { 
+  &:before { content: "\f01a"; }
+}
+
+// Element Icons
+.rpg-sun { 
+  &:before { content: "\f01b"; }
+}
+
+.rpg-moon { 
+  &:before { content: "\f01c"; }
+}
+
+.rpg-bolt { 
+  &:before { content: "\f01d"; }
+}
+
+.rpg-snowflake { 
+  &:before { content: "\f01e"; }
+}
+
+.rpg-leaf { 
+  &:before { content: "\f01f"; }
+}
+
+.rpg-flame { 
+  &:before { content: "\f020"; }
+}
+
+// Utility Classes for Monster Hunter
+.rpg-weakness-fire { 
+  color: $dsSH-colors-semantic-danger;
+  &:before { content: "\f002"; } // Fire
+}
+
+.rpg-weakness-water { 
+  color: $dsSH-bulma-info;
+  &:before { content: "\f003"; } // Water
+}
+
+.rpg-weakness-thunder { 
+  color: $dsSH-colors-tokens-secondary;
+  &:before { content: "\f004"; } // Thunder
+}
+
+.rpg-weakness-ice { 
+  color: $dsSH-bulma-info;
+  &:before { content: "\f005"; } // Ice
+}
+
+.rpg-weakness-dragon { 
+  color: $dsSH-colors-palette-rathalosred-500;
+  &:before { content: "\f006"; } // Dragon
+}
+
+.rpg-weakness-poison { 
+  color: $dsSH-colors-palette-gray-600;
+  &:before { content: "\f007"; } // Poison
+}
+
+.rpg-weakness-sleep { 
+  color: $dsSH-colors-palette-gray-500;
+  &:before { content: "\f008"; } // Sleep
+}
+
+.rpg-weakness-paralysis { 
+  color: $dsSH-colors-tokens-secondary;
+  &:before { content: "\f009"; } // Paralysis
+}
+
+.rpg-weakness-blast { 
+  color: $dsSH-colors-semantic-danger;
+  &:before { content: "\f00a"; } // Blast
+}

@@ -1,0 +1,92 @@
+---
+interface Monster {
+  id: number;
+  name: string;
+  rank: string;
+  type: string;
+  weaknesses: string[];
+  recommendedGlaive: string;
+  materials: string[];
+  description: string;
+  stats: {
+    health: string;
+    attack: string;
+    defense: string;
+  };
+  habitat: string[];
+  behavior: string[];
+  image?: string;
+  icon?: string;
+}
+
+interface Props {
+  monster: Monster;
+}
+
+const { monster } = Astro.props;
+
+// Helper functions
+function getMonsterTypeIcon(type: string): string {
+  const typeIcons: Record<string, string> = {
+    'elder-dragon': '',
+    'fanged-beast': '',
+    'flying-wyvern': '',
+    'brute-wyvern': '',
+    'leviathan': '',
+    'piscine-wyvern': '',
+    'bird-wyvern': '',
+    'carapaceon': '',
+    'neopteron': '',
+    'temnoceran': '',
+    'skavern': ''
+  };
+  return typeIcons[type] || '';
+}
+
+function getMonsterTypeName(type: string): string {
+  const typeNames: Record<string, string> = {
+    'elder-dragon': 'Elder Dragon',
+    'fanged-beast': 'Fanged Beast',
+    'flying-wyvern': 'Flying Wyvern',
+    'brute-wyvern': 'Brute Wyvern',
+    'leviathan': 'Leviathan',
+    'piscine-wyvern': 'Piscine Wyvern',
+    'bird-wyvern': 'Bird Wyvern',
+    'carapaceon': 'Carapaceon',
+    'neopteron': 'Neopteron',
+    'temnoceran': 'Temnoceran',
+    'skavern': 'Skavern'
+  };
+  return typeNames[type] || 'Elder Dragon';
+}
+---
+
+<a href={`/monstro?id=${monster.id}`} class="dshunter-card">
+  <!-- Card Header -->
+  <div class="dshunter-card-header">
+    <div class="dshunter-card-title">
+      <h3>{monster.name}</h3>
+    </div>
+    <div class="dshunter-card-icon">
+      <div class="dshunter-icon-wrapper">
+        <img src={monster.image || '/imgs/monsters/placeholder.jpg'} alt={monster.name} />
+      </div>
+    </div>
+  </div>
+
+  <!-- Card Footer -->
+  <div class="dshunter-card-footer">
+    <div class="dshunter-card-type">
+      <div class="dshunter-type-icon">{getMonsterTypeIcon(monster.type)}</div>
+      <div class="dshunter-type-name">{getMonsterTypeName(monster.type)}</div>
+    </div>
+  </div>
+
+  <!-- Card Image Background -->
+  <div class="dshunter-card-image">
+    <div class="dshunter-image-filter"></div>
+    <div class="dshunter-image-wrapper">
+      <img src={monster.image || '/imgs/monsters/placeholder.jpg'} alt={monster.name} />
+    </div>
+  </div>
+</a>

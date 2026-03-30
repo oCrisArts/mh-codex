@@ -1,0 +1,121 @@
+// Layout styles for Monster Hunter Codex
+
+.dsSH-app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dsSH-header {
+  background-color: $dsSH-bg-app;
+  padding: $dsSH-space-16 $dsSH-space-8;
+  
+  @media screen and (max-width: 767px) {
+    padding: $dsSH-space-12 $dsSH-space-4;
+  }
+}
+
+.dsSH-hero {
+  text-align: center;
+  margin-bottom: $dsSH-space-8;
+  
+  @media screen and (max-width: 767px) {
+    margin-bottom: $dsSH-space-6;
+  }
+}
+
+.dsSH-title {
+  font-size: $dsSH-font-size-4xl;
+  font-weight: $dsSH-font-weight-bold;
+  color: $dsSH-text-main;
+  margin: 0 0 $dsSH-space-4 0;
+  line-height: $dsSH-line-height-base;
+  
+  @media screen and (max-width: 767px) {
+    font-size: $dsSH-font-size-2xl;
+  }
+}
+
+.dsSH-subtitle {
+  font-size: $dsSH-font-size-lg;
+  color: $dsSH-text-muted;
+  line-height: $dsSH-line-height-base;
+  margin: 0 auto;
+  max-width: 600px;
+  
+  @media screen and (max-width: 767px) {
+    font-size: $dsSH-font-size-base;
+  }
+}
+
+.dsSH-search-section {
+  margin-bottom: $dsSH-space-8;
+  
+  @media screen and (max-width: 767px) {
+    margin-bottom: $dsSH-space-6;
+  }
+}
+
+.dsSH-search-bar {
+  display: flex;
+  align-items: center;
+  background-color: $dsSH-bg-card;
+  border: 1px solid $dsSH-colors-palette-gray-300;
+  border-radius: $dsSH-radius-xl;
+  padding: $dsSH-space-3 $dsSH-space-5;
+  gap: $dsSH-space-3;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: all 0.15s ease-in-out;
+  
+  &:focus-within {
+    border-color: $dsSH-bulma-primary;
+    box-shadow: 0 0 0 2px rgba(41, 147, 196, 0.2);
+  }
+  
+  @media screen and (max-width: 767px) {
+    padding: $dsSH-space-2 $dsSH-space-4;
+    gap: $dsSH-space-2;
+  }
+}
+
+.dsSH-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: $dsSH-font-size-base;
+  color: $dsSH-text-main;
+  font-family: $dsSH-font-family-primary;
+  
+  &::placeholder {
+    color: $dsSH-text-muted;
+  }
+}
+
+.dsSH-search-button {
+  color: $dsSH-text-main;
+  cursor: pointer;
+  padding: $dsSH-space-1;
+  border-radius: $dsSH-radius-sm;
+  transition: all 0.15s ease-in-out;
+  
+  &:hover {
+    background-color: $dsSH-colors-palette-gray-100;
+  }
+}
+
+.dsSH-main {
+  flex: 1;
+  padding: $dsSH-space-8 $dsSH-space-4;
+  
+  @media screen and (max-width: 767px) {
+    padding: $dsSH-space-6 $dsSH-space-3;
+  }
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}

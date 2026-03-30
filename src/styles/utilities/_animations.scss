@@ -1,0 +1,124 @@
+// Animation utilities for Monster Hunter Codex
+
+// Keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+// Animation classes
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.slide-in-up {
+  animation: slideInUp 0.3s ease-out;
+}
+
+.slide-in-down {
+  animation: slideInDown 0.3s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+// Utility classes for hover effects
+.hover-lift {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.hover-scale {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Loading states
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
+
+// Responsive animations
+@media screen and (max-width: 768px) {
+  .fade-in,
+  .slide-in-up,
+  .slide-in-down {
+    animation-duration: 0.2s;
+  }
+}
+
+// Accessibility
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .slide-in-up,
+  .slide-in-down,
+  .pulse,
+  .hover-lift,
+  .hover-scale {
+    animation: none;
+    transition: none;
+  }
+  
+  .hover-lift:hover,
+  .hover-scale:hover {
+    transform: none;
+  }
+  
+  .loading-shimmer {
+    animation: none;
+    background: #f0f0f0;
+  }
+}

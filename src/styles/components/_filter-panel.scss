@@ -1,0 +1,143 @@
+// Filter Panel Component Styles
+.dshunter-filter-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100%;
+  background: rgba(15, 25, 30, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  transition: right 0.3s ease;
+
+  &.open {
+    right: 0;
+  }
+}
+
+.dshunter-filter-panel-content {
+  padding: 30px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.dshunter-filter-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+
+  h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+    font-family: var(--dshunter-typography-fontfamily-primary, 'Lato', sans-serif);
+  }
+}
+
+.dshunter-panel-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .material-symbols-outlined {
+    font-size: 24px;
+  }
+}
+
+.dshunter-filter-section {
+  h4 {
+    color: white;
+    font-size: 1.125rem;
+    margin: 0 0 15px 0;
+    font-family: var(--dshunter-typography-fontfamily-primary, 'Lato', sans-serif);
+  }
+}
+
+.dshunter-filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dshunter-filter-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+  font-family: var(--dshunter-typography-fontfamily-primary, 'Lato', sans-serif);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  input[type="radio"] {
+    accent-color: #2993c4;
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    font-size: 16px;
+  }
+}
+
+.dshunter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  &.show {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+// Responsive Design
+@media screen and (max-width: 768px) {
+  .dshunter-filter-panel {
+    width: 100%;
+    right: -100%;
+  }
+
+  .dshunter-filter-panel-content {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dshunter-filter-panel-header h3 {
+    font-size: 1.25rem;
+  }
+
+  .dshunter-filter-section h4 {
+    font-size: 1rem;
+  }
+
+  .dshunter-filter-option {
+    padding: 8px;
+  }
+
+  .dshunter-filter-option span {
+    font-size: 14px;
+  }
+}

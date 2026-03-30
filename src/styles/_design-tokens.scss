@@ -1,0 +1,258 @@
+// Design Tokens for Monster Hunter Codex
+// Prefix: dsSH
+// Based on Design Tokens Standard (https://www.designtokens.org/)
+
+@use 'sass:color';
+@use 'sass:math';
+
+// =============================================================================
+// COLORS
+// =============================================================================
+
+// Color Palette
+$dsSH-colors-palette-gray-50: #f7fbfc !default;
+$dsSH-colors-palette-gray-100: #eef4f6 !default;
+$dsSH-colors-palette-gray-200: #d4e1e6 !default;
+$dsSH-colors-palette-gray-300: #b5c8d0 !default;
+$dsSH-colors-palette-gray-400: #90a9b4 !default;
+$dsSH-colors-palette-gray-500: #708a96 !default;
+$dsSH-colors-palette-gray-600: #546d78 !default;
+$dsSH-colors-palette-gray-700: #3c515a !default;
+$dsSH-colors-palette-gray-800: #26363d !default;
+$dsSH-colors-palette-gray-900: #0f191e !default;
+
+$dsSH-colors-palette-iceblue-50: #f0f8ff !default;
+$dsSH-colors-palette-iceblue-100: #dcedf7 !default;
+$dsSH-colors-palette-iceblue-200: #97bdc2 !default;
+$dsSH-colors-palette-iceblue-300: #5bb2e2 !default;
+$dsSH-colors-palette-iceblue-400: #36a3d9 !default;
+$dsSH-colors-palette-iceblue-500: #2993c4 !default;
+$dsSH-colors-palette-iceblue-600: #1b679c !default;
+$dsSH-colors-palette-iceblue-700: #083c9a !default;
+$dsSH-colors-palette-iceblue-800: #062b70 !default;
+$dsSH-colors-palette-iceblue-900: #041b47 !default;
+
+$dsSH-colors-palette-scoutgold-50: #fffdf2 !default;
+$dsSH-colors-palette-scoutgold-100: #fdf8d9 !default;
+$dsSH-colors-palette-scoutgold-200: #fbeaad !default;
+$dsSH-colors-palette-scoutgold-300: #fae36b !default;
+$dsSH-colors-palette-scoutgold-400: #f7d938 !default;
+$dsSH-colors-palette-scoutgold-500: #f5cf09 !default;
+$dsSH-colors-palette-scoutgold-600: #d6b406 !default;
+$dsSH-colors-palette-scoutgold-700: #b39605 !default;
+$dsSH-colors-palette-scoutgold-800: #8a7303 !default;
+$dsSH-colors-palette-scoutgold-900: #665502 !default;
+
+$dsSH-colors-palette-herbgreen-50: #f4f7f6 !default;
+$dsSH-colors-palette-herbgreen-100: #e8ecea !default;
+$dsSH-colors-palette-herbgreen-200: #cfdcd7 !default;
+$dsSH-colors-palette-herbgreen-300: #b5c7c0 !default;
+$dsSH-colors-palette-herbgreen-400: #90aba0 !default;
+$dsSH-colors-palette-herbgreen-500: #6b8c7e !default;
+$dsSH-colors-palette-herbgreen-600: #547064 !default;
+$dsSH-colors-palette-herbgreen-700: #425c51 !default;
+$dsSH-colors-palette-herbgreen-800: #31453d !default;
+$dsSH-colors-palette-herbgreen-900: #22332c !default;
+
+$dsSH-colors-palette-rathalosred-50: #fef4f4 !default;
+$dsSH-colors-palette-rathalosred-100: #fae0e0 !default;
+$dsSH-colors-palette-rathalosred-200: #f5c2c2 !default;
+$dsSH-colors-palette-rathalosred-300: #ed9b9b !default;
+$dsSH-colors-palette-rathalosred-400: #de6a6a !default;
+$dsSH-colors-palette-rathalosred-500: #c43c3c !default;
+$dsSH-colors-palette-rathalosred-600: #a82f2f !default;
+$dsSH-colors-palette-rathalosred-700: #8f2828 !default;
+$dsSH-colors-palette-rathalosred-800: #732222 !default;
+$dsSH-colors-palette-rathalosred-900: #541414 !default;
+
+// Color Tokens
+$dsSH-colors-tokens-white: #{$dsSH-colors-palette-gray-50} !default;
+$dsSH-colors-tokens-black: #{$dsSH-colors-palette-gray-900} !default;
+$dsSH-colors-tokens-primary: #{$dsSH-colors-palette-iceblue-500} !default;
+$dsSH-colors-tokens-secondary: #{$dsSH-colors-palette-scoutgold-500} !default;
+$dsSH-colors-tokens-standard: #{$dsSH-colors-palette-gray-500} !default;
+
+// Semantic Colors
+$dsSH-colors-semantic-info: #{$dsSH-colors-palette-iceblue-300} !default;
+$dsSH-colors-semantic-success: #{$dsSH-colors-palette-herbgreen-500} !default;
+$dsSH-colors-semantic-warning: #{$dsSH-colors-palette-scoutgold-500} !default;
+$dsSH-colors-semantic-danger: #{$dsSH-colors-palette-rathalosred-500} !default;
+
+// =============================================================================
+// TYPOGRAPHY
+// =============================================================================
+
+// Font Families
+$dsSH-typography-family-primary: 'Lato', sans-serif !default;
+$dsSH-typography-family-icons: 'Material Symbols Outlined', sans-serif !default;
+$dsSH-typography-family-rpg: 'RPG Awesome', sans-serif !default;
+
+// Font Sizes
+$dsSH-typography-sizes-xs: 9px !default;
+$dsSH-typography-sizes-sm: 12px !default;
+$dsSH-typography-sizes-base: 16px !default;
+$dsSH-typography-sizes-lg: 21px !default;
+$dsSH-typography-sizes-xl: 28px !default;
+$dsSH-typography-sizes-2xl: 38px !default;
+$dsSH-typography-sizes-3xl: 51px !default;
+$dsSH-typography-sizes-4xl: 67px !default;
+$dsSH-typography-sizes-5xl: 90px !default;
+$dsSH-typography-sizes-6xl: 120px !default;
+$dsSH-typography-sizes-7xl: 160px !default;
+
+// Font Weights
+$dsSH-typography-weight-light: 300 !default;
+$dsSH-typography-weight-normal: 400 !default;
+$dsSH-typography-weight-medium: 500 !default;
+$dsSH-typography-weight-semibold: 600 !default;
+$dsSH-typography-weight-bold: 700 !default;
+$dsSH-typography-weight-black: 900 !default;
+
+// Line Heights
+$dsSH-typography-line-height-tight: 1.2 !default;
+$dsSH-typography-line-height-base: 1.6 !default;
+$dsSH-typography-line-height-relaxed: 1.8 !default;
+
+// =============================================================================
+// LAYOUT
+// =============================================================================
+
+// Spacing
+$dsSH-layout-space-0: 0px !default;
+$dsSH-layout-space-1: 4px !default;
+$dsSH-layout-space-2: 8px !default;
+$dsSH-layout-space-3: 12px !default;
+$dsSH-layout-space-4: 16px !default;
+$dsSH-layout-space-5: 20px !default;
+$dsSH-layout-space-6: 24px !default;
+$dsSH-layout-space-8: 32px !default;
+$dsSH-layout-space-10: 40px !default;
+$dsSH-layout-space-12: 48px !default;
+$dsSH-layout-space-16: 64px !default;
+$dsSH-layout-space-20: 80px !default;
+$dsSH-layout-space-24: 96px !default;
+$dsSH-layout-space-30: 120px !default;
+$dsSH-layout-space-36: 144px !default;
+$dsSH-layout-space-40: 160px !default;
+$dsSH-layout-space-48: 192px !default;
+$dsSH-layout-space-50: 200px !default;
+$dsSH-layout-space-64: 256px !default;
+$dsSH-layout-space-72: 288px !default;
+$dsSH-layout-space-80: 320px !default;
+$dsSH-layout-space-96: 384px !default;
+$dsSH-layout-space-120: 480px !default;
+
+// Border Radius
+$dsSH-layout-radius-sm: 8px !default;
+$dsSH-layout-radius-base: 10px !default;
+$dsSH-layout-radius-lg: 12px !default;
+$dsSH-layout-radius-xl: 20px !default;
+
+// Shadows
+$dsSH-layout-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !default;
+$dsSH-layout-shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !default;
+$dsSH-layout-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !default;
+$dsSH-layout-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !default;
+$dsSH-layout-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !default;
+
+// =============================================================================
+// SEMANTIC TOKENS
+// =============================================================================
+
+// Background Colors
+$dsSH-bg-app: #{$dsSH-colors-palette-gray-100} !default;
+$dsSH-bg-card: #{$dsSH-colors-tokens-white} !default;
+$dsSH-bg-dark: #{$dsSH-colors-tokens-black} !default;
+
+// Text Colors
+$dsSH-text-main: #{$dsSH-colors-tokens-black} !default;
+$dsSH-text-muted: #{$dsSH-colors-palette-gray-500} !default;
+$dsSH-text-inverse: #{$dsSH-colors-tokens-white} !default;
+
+// Bulma Component Colors
+$dsSH-bulma-primary: #{$dsSH-colors-tokens-primary} !default;
+$dsSH-bulma-primary-invert: #{$dsSH-colors-tokens-white} !default;
+$dsSH-bulma-info: #{$dsSH-colors-semantic-info} !default;
+$dsSH-bulma-info-invert: #{$dsSH-colors-tokens-black} !default;
+$dsSH-bulma-success: #{$dsSH-colors-semantic-success} !default;
+$dsSH-bulma-success-invert: #{$dsSH-colors-tokens-white} !default;
+$dsSH-bulma-warning: #{$dsSH-colors-semantic-warning} !default;
+$dsSH-bulma-warning-invert: #{$dsSH-colors-tokens-black} !default;
+$dsSH-bulma-danger: #{$dsSH-colors-semantic-danger} !default;
+$dsSH-bulma-danger-invert: #{$dsSH-colors-tokens-white} !default;
+
+// =============================================================================
+// LEGACY ALIASES (for backward compatibility)
+// =============================================================================
+
+// Color Aliases
+$dsSH-color-white: $dsSH-colors-tokens-white !default;
+$dsSH-color-black: $dsSH-colors-tokens-black !default;
+$dsSH-color-primary: $dsSH-colors-tokens-primary !default;
+$dsSH-color-secondary: $dsSH-colors-tokens-secondary !default;
+$dsSH-color-standard: $dsSH-colors-tokens-standard !default;
+
+// Typography Aliases
+$dsSH-font-family-primary: $dsSH-typography-family-primary !default;
+$dsSH-font-family-icons: $dsSH-typography-family-icons !default;
+$dsSH-font-family-rpg: $dsSH-typography-family-rpg !default;
+$dsSH-font-size-xs: $dsSH-typography-sizes-xs !default;
+$dsSH-font-size-sm: $dsSH-typography-sizes-sm !default;
+$dsSH-font-size-base: $dsSH-typography-sizes-base !default;
+$dsSH-font-size-lg: $dsSH-typography-sizes-lg !default;
+$dsSH-font-size-xl: $dsSH-typography-sizes-xl !default;
+$dsSH-font-size-2xl: $dsSH-typography-sizes-2xl !default;
+$dsSH-font-size-3xl: $dsSH-typography-sizes-3xl !default;
+$dsSH-font-size-4xl: $dsSH-typography-sizes-4xl !default;
+$dsSH-font-size-5xl: $dsSH-typography-sizes-5xl !default;
+$dsSH-font-size-6xl: $dsSH-typography-sizes-6xl !default;
+$dsSH-font-size-7xl: $dsSH-typography-sizes-7xl !default;
+
+$dsSH-font-weight-light: $dsSH-typography-weight-light !default;
+$dsSH-font-weight-normal: $dsSH-typography-weight-normal !default;
+$dsSH-font-weight-medium: $dsSH-typography-weight-medium !default;
+$dsSH-font-weight-semibold: $dsSH-typography-weight-semibold !default;
+$dsSH-font-weight-bold: $dsSH-typography-weight-bold !default;
+$dsSH-font-weight-black: $dsSH-typography-weight-black !default;
+
+$dsSH-line-height-tight: $dsSH-typography-line-height-tight !default;
+$dsSH-line-height-base: $dsSH-typography-line-height-base !default;
+$dsSH-line-height-relaxed: $dsSH-typography-line-height-relaxed !default;
+
+// Layout Aliases
+$dsSH-space-0: $dsSH-layout-space-0 !default;
+$dsSH-space-1: $dsSH-layout-space-1 !default;
+$dsSH-space-2: $dsSH-layout-space-2 !default;
+$dsSH-space-3: $dsSH-layout-space-3 !default;
+$dsSH-space-4: $dsSH-layout-space-4 !default;
+$dsSH-space-5: $dsSH-layout-space-5 !default;
+$dsSH-space-6: $dsSH-layout-space-6 !default;
+$dsSH-space-8: $dsSH-layout-space-8 !default;
+$dsSH-space-10: $dsSH-layout-space-10 !default;
+$dsSH-space-12: $dsSH-layout-space-12 !default;
+$dsSH-space-16: $dsSH-layout-space-16 !default;
+$dsSH-space-20: $dsSH-layout-space-20 !default;
+$dsSH-space-24: $dsSH-layout-space-24 !default;
+$dsSH-space-30: $dsSH-layout-space-30 !default;
+$dsSH-space-36: $dsSH-layout-space-36 !default;
+$dsSH-space-40: $dsSH-layout-space-40 !default;
+$dsSH-space-48: $dsSH-layout-space-48 !default;
+$dsSH-space-50: $dsSH-layout-space-50 !default;
+$dsSH-space-64: $dsSH-layout-space-64 !default;
+$dsSH-space-72: $dsSH-layout-space-72 !default;
+$dsSH-space-80: $dsSH-layout-space-80 !default;
+$dsSH-space-96: $dsSH-layout-space-96 !default;
+$dsSH-space-120: $dsSH-layout-space-120 !default;
+
+$dsSH-radius-sm: $dsSH-layout-radius-sm !default;
+$dsSH-radius-base: $dsSH-layout-radius-base !default;
+$dsSH-radius-lg: $dsSH-layout-radius-lg !default;
+$dsSH-radius-xl: $dsSH-layout-radius-xl !default;
+
+$dsSH-shadow-sm: $dsSH-layout-shadow-sm !default;
+$dsSH-shadow-base: $dsSH-layout-shadow-base !default;
+$dsSH-shadow-md: $dsSH-layout-shadow-md !default;
+$dsSH-shadow-lg: $dsSH-layout-shadow-lg !default;
+$dsSH-shadow-xl: $dsSH-layout-shadow-xl !default;
+$dsSH-radius-lg: $dsSH-layout-radius-lg !default;
+$dsSH-radius-xl: $dsSH-layout-radius-xl !default;

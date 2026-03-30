@@ -1,0 +1,174 @@
+// Navigation Component Styles
+.dshunter-navbar {
+  position: absolute;
+  display: flex;
+  gap: var(--dssh-layout-space-6, 24px);
+  align-items: center;
+  justify-content: flex-end;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  padding: var(--dssh-layout-space-5, 20px) var(--dssh-layout-space-30, 120px);
+  z-index: 10;
+  overflow: clip;
+}
+
+.dshunter-search-bar {
+  background: var(--dssh-colors-palette-gray-100, #eef4f6);
+  border: 1px solid var(--dssh-colors-palette-gray-300, #b5c8d0);
+  border-radius: var(--dssh-layout-radius-xl, 20px);
+  display: flex;
+  flex: 1 0 0;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--dssh-layout-space-3, 12px) var(--dssh-layout-space-6, 24px);
+  position: relative;
+  min-height: 1px;
+  min-width: 1px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: var(--dssh-colors-palette-gray-200, #d4e1e6);
+  }
+}
+
+.dshunter-search-text {
+  font-family: var(--dshunter-typography-fontfamily-primary, 'Lato', sans-serif);
+  font-size: var(--dssh-typography-sizes-lg, 28px);
+  color: var(--dssh-colors-palette-gray-900, #0f191e);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+}
+
+.dshunter-search-icon {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: var(--dssh-typography-sizes-xl, 28px);
+  color: var(--dssh-colors-palette-gray-900, #0f191e);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+}
+
+.dshunter-filter-btn {
+  background: var(--dssh-colors-palette-gray-100, #eef4f6);
+  border: none;
+  border-radius: var(--dssh-layout-radius-lg, 12px);
+  display: flex;
+  gap: var(--dssh-layout-space-2, 8px);
+  height: 60px;
+  align-items: center;
+  padding: var(--dssh-layout-space-3, 12px) var(--dssh-layout-space-5, 20px);
+  position: relative;
+  flex-shrink: 0;
+  width: 142px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: var(--dssh-colors-palette-gray-200, #d4e1e6);
+  }
+}
+
+.dshunter-filter-label {
+  font-family: var(--dshunter-typography-fontfamily-primary, 'Lato', sans-serif);
+  font-size: var(--dssh-typography-sizes-xl, 28px);
+  color: var(--dssh-colors-palette-gray-900, #0f191e);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+}
+
+.dshunter-filter-icon {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: var(--dssh-typography-sizes-xl, 28px);
+  color: var(--dssh-colors-palette-gray-900, #0f191e);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+}
+
+.dshunter-brand {
+  height: 200.001px;
+  position: relative;
+  flex-shrink: 0;
+  width: 267px;
+}
+
+.dshunter-brand img {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+
+// Responsive Design
+@media screen and (max-width: 1400px) {
+  .dshunter-navbar {
+    padding: 20px 60px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .dshunter-navbar {
+    padding: 20px 40px;
+  }
+
+  .dshunter-search-bar {
+    width: 100%;
+  }
+
+  .dshunter-filter-btn {
+    width: 120px;
+  }
+
+  .dshunter-brand {
+    width: 200px;
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dshunter-navbar {
+    flex-direction: column;
+    padding: 20px;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .dshunter-search-bar {
+    width: 100%;
+  }
+
+  .dshunter-filter-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dshunter-brand {
+    width: 200px;
+    height: 150px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dshunter-search-text,
+  .dshunter-search-icon,
+  .dshunter-filter-label,
+  .dshunter-filter-icon {
+    font-size: 20px;
+  }
+
+  .dshunter-filter-btn {
+    height: 50px;
+  }
+
+  .dshunter-search-bar {
+    height: 50px;
+  }
+}
