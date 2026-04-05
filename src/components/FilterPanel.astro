@@ -1,43 +1,155 @@
 ---
 interface Props {
   isOpen?: boolean;
+  games?: string[];
+  ranks?: string[];
 }
 
-const { isOpen = false } = Astro.props;
+const { isOpen = false, games = [], ranks = [] } = Astro.props;
+
+const gameLabels: Record<string, string> = {
+  'mh-world': 'Monster Hunter World',
+  'mh-rise': 'Monster Hunter Rise',
+  'mh-wilds': 'Monster Hunter Wilds',
+  'mh-stories': 'Monster Hunter Stories',
+};
+
+const rankLabels: Record<string, string> = {
+  'low': 'Baixo',
+  'high': 'Alto',
+  'master': 'Master',
+  'event': 'Evento',
+};
 ---
 
-<aside class={`dshunter-filter-panel ${isOpen ? 'open' : ''}`} id="filterPanel">
-  <div class="dshunter-filter-panel-content">
-    <div class="dshunter-filter-panel-header">
-      <h3>Filtros</h3>
-      <button class="dshunter-panel-close" id="panelClose">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    
-    <div class="dshunter-filter-section">
-      <h4>Rank do Monstro</h4>
-      <div class="dshunter-filter-options">
-        <label class="dshunter-filter-option">
-          <input type="radio" name="rank" value="all" checked />
-          <span>Todos</span>
-        </label>
-        <label class="dshunter-filter-option">
-          <input type="radio" name="rank" value="low-rank" />
-          <span>Baixo</span>
-        </label>
-        <label class="dshunter-filter-option">
-          <input type="radio" name="rank" value="high-rank" />
-          <span>Alto</span>
-        </label>
-        <label class="dshunter-filter-option">
-          <input type="radio" name="rank" value="master-rank" />
-          <span>Master</span>
-        </label>
-      </div>
-    </div>
+<aside class="menu dshunter-filter-panel" id="filterPanel">
+  <div class="menu-header is-flex is-justify-content-space-between is-align-content-center is-align-items-center">
+    <h3 class="">Filtros</h3>
+    <a href="#" class="button menu-close" id="panelClose" aria-label="close">
+      <span class="material-symbols-outlined">close</span>
+    </a>
   </div>
+  
+  <p class="menu-label">Jogo</p>
+  <ul class="menu-list" id="gameFilters">
+    <li><a href="#" data-game="all" class="is-active"><span>Todos</span></a></li>
+    {games.map(game => (
+      <li><a href="#" data-game={game}><span>{gameLabels[game] || game}</span></a></li>
+    ))}
+  </ul>
+  
+  <p class="menu-label">Ranks</p>
+  <ul class="menu-list" id="rankFilters">
+    <li><a href="#" data-rank="all" class="is-active"><span>Todos</span></a></li>
+    {ranks.map(rank => (
+      <li><a href="#" data-rank={rank}><span>{rankLabels[rank] || rank}</span></a></li>
+    ))}
+  </ul>  
 </aside>
-
 <!-- Overlay for filter panel -->
-<div class={`dshunter-overlay ${isOpen ? 'show' : ''}`} id="overlay"></div>
+<div class="dshunter-overlay" id="overlay"></div>
+
+<script>
+  // Filter panel functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButton = document.querySelector('.filter-button');
+    const filterPanel = document.getElementById('filterPanel');
+    const overlay = document.getElementById('overlay');
+    const panelClose = document.getElementById('panelClose');
+    const rankLinks = document.querySelectorAll('#rankFilters a[data-rank]');
+    const gameLinks = document.querySelectorAll('#gameFilters a[data-game]');
+    
+    // State
+    let currentRank = 'all';
+    let currentGame = 'all';
+    
+    // Open filter panel
+    if (filterButton) {
+      filterButton.addEventListener('click', () => {
+        filterPanel?.classList.add('open');
+        overlay?.classList.add('show');
+      });
+    }
+    
+    // Close filter panel
+    if (panelClose) {
+      panelClose.addEventListener('click', (e) => {
+        e.preventDefault();
+        filterPanel?.classList.remove('open');
+        overlay?.classList.remove('show');
+      });
+    }
+    
+    // Close on overlay click
+    if (overlay) {
+      overlay.addEventListener('click', () => {
+        filterPanel?.classList.remove('open');
+        overlay?.classList.remove('show');
+      });
+    }
+    
+    // Apply filters
+    const applyFilters = () => {
+      const monsterCards = document.querySelectorAll('.monster-card-wrapper');
+      
+      monsterCards.forEach(card => {
+        const cardElement = card as HTMLElement;
+        const monsterId = card.getAttribute('data-monster-id');
+        if (!monsterId) return;
+        
+        // Get monster data from global window object or data attributes
+        const monsterData = (window as any).monsterData?.[monsterId];
+        if (!monsterData) {
+          cardElement.style.display = 'block';
+          return;
+        }
+        
+        const games = monsterData.games || {};
+        const availableRanks = Object.values(games).flatMap((g: any) => g.rank || []);
+        
+        const rankMatch = currentRank === 'all' || availableRanks.includes(currentRank);
+        const gameMatch = currentGame === 'all' || games[currentGame];
+        
+        cardElement.style.display = (rankMatch && gameMatch) ? 'block' : 'none';
+      });
+    };
+    
+    // Rank filter functionality
+    rankLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        currentRank = link.getAttribute('data-rank') || 'all';
+        
+        // Update active state
+        rankLinks.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+        
+        applyFilters();
+        
+        // Close panel after filter selection
+        filterPanel?.classList.remove('open');
+        overlay?.classList.remove('show');
+      });
+    });
+    
+    // Game filter functionality
+    gameLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        currentGame = link.getAttribute('data-game') || 'all';
+        
+        // Update active state
+        gameLinks.forEach(l => l.classList.remove('is-active'));
+        link.classList.add('is-active');
+        
+        applyFilters();
+        
+        // Close panel after filter selection
+        filterPanel?.classList.remove('open');
+        overlay?.classList.remove('show');
+      });
+    });
+  });
+</script>

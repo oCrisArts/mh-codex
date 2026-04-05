@@ -1,110 +1,446 @@
-// Main SCSS file for Monster Hunter Codex
-// Import design tokens and configure Bulma
+// Monster Hunter Codex - Main SCSS
+// Using Bulma CSS Framework with custom design tokens
 
-// Import design tokens
+// Import design tokens first
 @import 'design-tokens';
 
-// Import layout styles
-@import 'layout';
-
-// Import and configure Bulma
-@import 'bulma/sass/utilities/initial-variables';
-@import 'bulma/sass/utilities/functions';
-
-// Override Bulma variables with our design tokens
-$family-primary: $dsSH-font-family-primary;
-$family-sans-serif: $dsSH-font-family-primary;
-
-// Colors
-$primary-invert: $dsSH-bulma-primary-invert;
-$info-invert: $dsSH-bulma-info-invert;
-$success-invert: $dsSH-bulma-success-invert;
-$warning-invert: $dsSH-bulma-warning-invert;
-$danger-invert: $dsSH-bulma-danger-invert;
-$white: $dsSH-color-white;
-$black: $dsSH-color-black;
-$grey-lighter: $dsSH-colors-palette-gray-50;
-$grey-light: $dsSH-colors-palette-gray-100;
-$grey: $dsSH-colors-palette-gray-200;
-$dark: $dsSH-colors-palette-gray-800;
-$primary: $dsSH-bulma-primary;
-$info: $dsSH-bulma-info;
-$success: $dsSH-bulma-success;
-$warning: $dsSH-bulma-warning;
-$danger: $dsSH-bulma-danger;
-
-// Typography
-$size-1: $dsSH-font-size-4xl;
-$size-3: $dsSH-font-size-2xl;
-$size-4: $dsSH-font-size-xl;
-$size-5: $dsSH-font-size-lg;
-$size-6: $dsSH-font-size-base;
-$size-7: $dsSH-font-size-sm;
-
-$weight-light: $dsSH-font-weight-light;
-$weight-normal: $dsSH-font-weight-normal;
-$weight-medium: $dsSH-font-weight-medium;
-$weight-semibold: $dsSH-font-weight-semibold;
-$weight-bold: $dsSH-font-weight-bold;
-
-// Spacing
-$gap: $dsSH-space-8;
-$spacing-large: $dsSH-space-12;
-
-// Border radius
-$radius: $dsSH-radius-base;
-$radius-large: $dsSH-radius-lg;
-
-// Box shadow
-$box-shadow: $dsSH-shadow-base;
-
-// Import Bulma
+// Import Bulma (com valores padrão, sem override)
 @import 'bulma/bulma';
 
-// Import page styles
-@import 'pages/home';
-
-// Import component styles
-@import 'components/navigation';
-@import 'components/header';
-@import 'components/monster-card';
-@import 'components/filter-panel';
-
-// Legacy components (keep for compatibility)
-@import 'components/modal';
-@import 'components/tabs';
-@import 'components/search';
-
-// Import utilities and icons
-@import 'utilities/animations';
-@import 'rpg-awesome';
-@import 'rpg-icons';
-
-// Global styles
-body {
-  background-color: $dsSH-bg-app;
-  color: $dsSH-text-main;
-  font-family: $dsSH-font-family-primary;
-}
-
-// Responsive utilities
-.is-mobile-only {
-  @media screen and (min-width: 480px) {
-    display: none !important;
+.navbar {
+  background: transparent !important;
+  padding: $dsSH-space-0 $dsSH-space-8;
+  margin: $dsSH-space-0;
+  .is-expanded {
+    flex: 1 1 0 !important;
+    width: 100% !important;
+  }
+  .brand {
+    max-height: $dsSH-space-40;
   }
 }
 
-.is-tablet-only {
-  @media screen and (max-width: 479px) {
-    display: none !important;
-  }
-  @media screen and (min-width: 1024px) {
-    display: none !important;
+// Header hero styles
+.video-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
-.is-desktop-only {
-  @media screen and (max-width: 767px) {
-    display: none !important;
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000080;
+  z-index: 1;
+}
+
+.hero-body {
+  position: relative;
+  z-index: 2;
+}
+
+// Main content area
+.dshunter-home {
+  min-height: 100vh;
+  position: relative;
+}
+
+.dshunter-article {
+  padding: $dsSH-space-0;
+  position: relative;
+  z-index: 1;
+}
+
+// Filter panel styles
+.dshunter-filter-panel {
+  position: fixed;
+  padding: $dsSH-space-12;
+  background: $dsSH-color-black;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100vh;
+  box-shadow: -2px 0 10px #0000001a;
+  transition: all 0.5s ease;
+  z-index: 1000;  
+  &.open {
+    right: 0;
+  }
+}
+
+.dshunter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000080;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.menu-header {
+  color: $dsSH-color-white;
+  h3 {
+    margin: 0;
+    font-weight: $dsSH-font-weight-semibold;
+  }
+  .button {
+    background: transparent;
+    border: none;
+    color: $dsSH-color-white;
+    box-shadow: none;    
+    &:hover {
+      background: #ffffff1a;
+    }
+  }
+}
+
+.menu-list a {
+  background: transparent;
+  &.is-active {
+    background: transparent;
+    color: $dsSH-color-white;
+  }
+}
+
+// Monster cards
+.monster-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.dshunter-card {
+  background: $dsSH-color-white;
+  border-radius: $dsSH-radius-lg;
+  overflow: hidden;
+  box-shadow: $dsSH-shadow-base;
+  margin-bottom: 1.5rem;
+  
+  .dshunter-card-header {
+    background: linear-gradient(135deg, $dsSH-bulma-primary, $dsSH-colors-palette-iceblue-300);
+    color: $dsSH-color-white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dshunter-card-title h3 {
+    margin: 0;
+    font-size: $dsSH-font-size-lg;
+    font-weight: $dsSH-font-weight-bold;
+  }
+  
+  .dshunter-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid $dsSH-color-white;
+    
+    .dshunter-icon-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  
+  .dshunter-card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    
+    .dshunter-image-filter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .dshunter-image-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  
+  .dshunter-card-footer {
+    background: $dsSH-color-black;
+    color: $dsSH-color-white;
+    padding: 1rem;
+    
+    .dshunter-card-type {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      .dshunter-type-icon {
+        font-size: 1.5rem;
+      }
+      
+      .dshunter-type-name {
+        font-size: $dsSH-font-size-sm;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}
+
+// ============================================
+// Monster Detail Page Styles
+// ============================================
+.dshunter-monster {
+  background-color: $dsSH-color-black;
+  min-height: 100vh;
+  
+  .monster-icon {
+    img {
+      border-radius: $dsSH-radius-base;
+      object-fit: contain;
+    }
+  }
+  
+  .monster-description {
+    color: $dsSH-colors-palette-gray-100;
+    max-width: 600px;
+  }
+  
+  .monster-main-image {
+    border-radius: $dsSH-radius-lg;
+    overflow: hidden;
+    box-shadow: 0 4px 20px #00000080;
+    
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  
+  // Game Tabs
+  .game-tabs {
+    &.is-toggle {
+      li {
+        a {
+          background-color: $dsSH-colors-palette-gray-900;
+          border-color: $dsSH-colors-palette-gray-700;
+          color: $dsSH-colors-palette-gray-100;
+          
+          .game-title {
+            font-weight: $dsSH-font-weight-semibold;
+          }
+          
+          .game-subtitle {
+            font-size: $dsSH-font-size-sm;
+            color: $dsSH-colors-palette-gray-400;
+          }
+          
+          &:hover {
+            background-color: $dsSH-colors-palette-gray-700;
+          }
+        }
+        
+        &.is-active {
+          a {
+            background-color: $dsSH-bulma-primary;
+            border-color: $dsSH-bulma-primary;
+            color: $dsSH-color-white;
+          }
+        }
+      }
+    }
+  }
+  
+  // Game Panels
+  .game-panel {
+    display: none;
+    
+    &.is-active {
+      display: block;
+    }
+  }
+  
+  // Monster Stats Box
+  .monster-stats-box {
+    background-color: $dsSH-colors-palette-gray-800;
+    border: 1px solid $dsSH-colors-palette-gray-700;
+    
+    .stat-value {
+      font-size: $dsSH-font-size-base;
+      font-weight: $dsSH-font-weight-bold;
+      color: $dsSH-color-white;
+      margin-top: 0.5rem;
+    }
+    
+    .icon {
+      font-size: 1.5rem;
+    }
+  }
+  
+  // Element Icons
+  .element-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  // Weapons Grid
+  .weapons-grid {
+    background-color: $dsSH-colors-palette-gray-800;
+    padding: 1rem;
+    border-radius: $dsSH-radius-base;
+    
+    .weapon-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      background-color: $dsSH-colors-palette-gray-900;
+      border-radius: $dsSH-radius-base;
+      
+      .weapon-icon {
+        width: 24px;
+        height: 24px;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      
+      .weapon-name {
+        font-size: $dsSH-font-size-sm;
+        color: $dsSH-colors-palette-gray-100;
+      }
+    }
+  }
+  
+  // Armor Section
+  .armor-section {
+    background-color: $dsSH-colors-palette-gray-800;
+    padding: 1rem;
+    border-radius: $dsSH-radius-base;
+    
+    .armor-pieces {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .armor-piece {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      background-color: $dsSH-colors-palette-gray-900;
+      border-radius: $dsSH-radius-base;
+      
+      .icon {
+        width: 24px;
+        height: 24px;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      
+      .piece-name {
+        font-size: $dsSH-font-size-base;
+        color: $dsSH-color-white;
+      }
+    }
+    
+    .armor-images {
+      .armor-set-image {
+        border-radius: $dsSH-radius-base;
+        overflow: hidden;
+        background-color: $dsSH-colors-palette-gray-900;
+        
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  
+  // Decorations
+  .decorations-section {
+    background-color: $dsSH-colors-palette-gray-800;
+    padding: 1rem;
+    border-radius: $dsSH-radius-base;
+    
+    .decoration-tag {
+      background-color: $dsSH-colors-palette-gray-900;
+      border: 1px solid $dsSH-colors-palette-gray-700;
+      
+      .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 0.25rem;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      
+      .decoration-level {
+        font-size: $dsSH-font-size-sm;
+        color: $dsSH-bulma-warning;
+        margin-left: 0.25rem;
+      }
+    }
   }
 }

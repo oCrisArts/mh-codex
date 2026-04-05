@@ -1,0 +1,226 @@
+---
+import FilterPanel from "../../components/FilterPanel.astro";
+import Header from "../../components/Header.astro";
+import Navigation from "../../components/Navigation.astro";
+import Layout from "../../layouts/Layout.astro";
+import MonsterHeader from "../../components/MonsterHeader.astro";
+import GameTabs from "../../components/GameTabs.astro";
+import MonsterStats from "../../components/MonsterStats.astro";
+import MonsterInfoSection from "../../components/MonsterInfoSection.astro";
+import MonsterWeapons from "../../components/MonsterWeapons.astro";
+import MonsterEquipment from "../../components/MonsterEquipment.astro";
+import { getCollection } from "astro:content";
+
+// Generate static paths for all monsters
+export async function getStaticPaths() {
+  const allEntries = await getCollection("monsters");
+  return allEntries.map((entry: any) => ({
+    params: { id: entry.data.id },
+  }));
+}
+
+// Get monster ID from URL params (dynamic route)
+const { id } = Astro.params;
+
+// Get all monsters from collection
+const allEntries = await getCollection("monsters");
+const monsters = allEntries.map((entry: any) => ({
+  ...entry.data,
+  slug: entry.slug,
+}));
+
+// Get monster data by ID
+const monster = id ? monsters.find((m: any) => m.id === id) : null;
+
+// If no monster found, redirect to search page
+if (!monster) {
+  return Astro.redirect("/");
+}
+
+const baseUrl = import.meta.env.BASE_URL;
+
+// Helper para labels dos jogos
+const gameLabels: Record<string, string> = {
+  'mh-world': 'World',
+  'mh-rise': 'Rise',
+  'mh-wilds': 'Wilds',
+};
+
+// Helper para sub-títulos dos jogos
+const gameSubtitles: Record<string, string> = {
+  'mh-world': 'Iceborn',
+  'mh-rise': 'Sunbreak',
+  'mh-wilds': '',
+};
+
+// Get available games
+const availableGames = Object.keys(monster.games || {});
+
+// Weapon type icons mapping
+const weaponIcons: Record<string, string> = {
+  'longsword': 'sword',
+  'dualblades': 'scissors',
+  'hammer': 'hammer',
+  'huntinghorn': 'horn',
+  'lance': 'spear',
+  'gunlance': 'crossbow',
+  'switchaxe': 'axe',
+  'chargeblade': 'shield',
+  'insectglaive': 'staff',
+  'bow': 'bow',
+};
+
+// Armor piece icons
+const armorPieceIcons: Record<string, string> = {
+  'helm': '/imgs/armor/helm.png',
+  'chest': '/imgs/armor/chest.png',
+  'arms': '/imgs/armor/arms.png',
+  'waist': '/imgs/armor/waist.png',
+  'legs': '/imgs/armor/legs.png',
+};
+
+// Element icons mapping (rpg-awesome classes)
+const elementIcons: Record<string, string> = {
+  'fire': 'fire',
+  'water': 'water-drop',
+  'thunder': 'lightning-bolt',
+  'ice': 'snowflake',
+  'dragon': 'dragon',
+  'poison': 'poison',
+  'sleep': 'sleepy',
+  'paralysis': 'paralysis',
+  'blast': 'explosion',
+  'trovão': 'lightning-bolt',
+};
+
+// Element display names
+const elementNames: Record<string, string> = {
+  'fire': 'Fogo',
+  'water': 'Água',
+  'thunder': 'Trovão',
+  'ice': 'Gelo',
+  'dragon': 'Dragão',
+  'poison': 'Veneno',
+  'sleep': 'Sono',
+  'paralysis': 'Paralisia',
+  'blast': 'Explosão',
+  'trovão': 'Trovão',
+};
+---
+
+<Layout title={`Monster Hunter Codex - ${monster.name}`}>
+  <Navigation />
+  <FilterPanel />
+  <main class="dshunter-monster py-5 mt-6">
+    <div class="container  is-fluid">
+      <div class="columns">
+        <MonsterHeader
+          name={monster.name}
+          species={monster.species}
+          type={monster.type}
+          description={monster.description}
+          icon={monster.icon}
+          image={monster.image}
+          baseUrl={baseUrl}
+        />
+        <div class="column">
+          <GameTabs games={availableGames} gameLabels={gameLabels} gameSubtitles={gameSubtitles} />
+          
+          <!-- Game Content Panels -->
+          {availableGames.map((game, index) => {
+            const gameData = monster.games?.[game] || {};
+            return (
+              <div class={`game-panel ${index === 0 ? 'is-active' : ''}`} data-game-panel={game}>
+                
+                  <MonsterStats 
+                    health_points={gameData.health_points}
+                    sizes={gameData.sizes}
+                  />
+                  
+                  <MonsterInfoSection 
+                    title="Habitats"
+                    icon="ra-mountains"
+                    items={gameData.habitats}
+                  />
+                  
+                  <MonsterInfoSection 
+                    title="Elementos"
+                    icon="ra-fire"
+                    items={monster.elements}
+                    itemIcons={elementIcons}
+                    itemNames={elementNames}
+                  />
+                  
+                  <MonsterInfoSection 
+                    title="Resistências"
+                    icon="ra-shield"
+                    items={monster.resistances}
+                    itemIcons={elementIcons}
+                    itemNames={elementNames}
+                  />
+                  
+                  <MonsterInfoSection 
+                    title="Males"
+                    icon="ra-skull"
+                    items={monster.ailments}
+                    itemIcons={elementIcons}
+                    itemNames={elementNames}
+                  />
+                  
+                  <MonsterInfoSection 
+                    title="Fraquezas"
+                    icon="ra-splash"
+                    items={gameData.weaknesses || monster.weaknesses}
+                    itemIcons={elementIcons}
+                    itemNames={elementNames}
+                  />
+                  
+                  <MonsterWeapons 
+                    weapons={gameData.recommended_weapons}
+                    weaponIcons={weaponIcons}
+                  />
+                  
+                  <MonsterEquipment 
+                    armor_set={gameData.armor_set}
+                    decorations={gameData.decorations}
+                    baseUrl={baseUrl}
+                    armorPieceIcons={armorPieceIcons}
+                  />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @import "../../styles/main.scss";
+</style>
+
+<script>
+  // Game tabs functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const gameTabs = document.querySelectorAll('[data-tabs="games"] li');
+    const gamePanels = document.querySelectorAll('[data-game-panel]');
+    
+    gameTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const game = tab.getAttribute('data-game');
+        
+        // Update tabs
+        gameTabs.forEach(t => t.classList.remove('is-active'));
+        tab.classList.add('is-active');
+        
+        // Update panels
+        gamePanels.forEach(panel => {
+          panel.classList.remove('is-active');
+          if (panel.getAttribute('data-game-panel') === game) {
+            panel.classList.add('is-active');
+          }
+        });
+      });
+    });
+  });
+</script>

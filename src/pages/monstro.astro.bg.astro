@@ -1,0 +1,247 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Get monster ID from URL
+const url = new URL(Astro.request.url);
+const monsterId = url.searchParams.get('id');
+
+// Get monsters from Content Collections
+const monstersEntries = await getCollection('monsters');
+const monsters = monstersEntries.map(m => m.data);
+
+// Get monster data
+const monster = monsterId ? monsters.find(m => m.id === parseInt(monsterId)) : null;
+
+// If no monster found, redirect to search page
+if (!monster) {
+	return Astro.redirect('/');
+}
+---
+
+<Layout title={`Monster Hunter Codex - ${monster.name}`}>
+
+<!-- Navigation -->
+  <Navigation />
+  <!-- Header -->
+  <Header />
+  <!-- Filter Panel -->
+  <FilterPanel />
+  <main class="dshunter-monster">
+    <section class="section dshunter-article" aria-label="Lista de monstros">
+		<div class="columns is-multiline">
+			<div class="column is-one-third">
+				
+          	</div>
+		</div>
+    </section>
+  </main>
+
+
+	<div class="monster-page">
+		<nav class="navbar" role="navigation" aria-label="Navegação principal">
+			<div class="container">
+				<div class="navbar-content">
+					<div class="search-bar">
+						<input 
+							type="search" 
+							value={monster.name}
+							placeholder="Encontrar monstro" 
+							aria-label="Pesquisar monstro"
+							class="search-input"
+							readonly
+						/>
+						<button class="search-button" aria-label="Pesquisar">
+							<span class="material-symbols-outlined">search</span>
+						</button>
+					</div>
+					
+					<button class="filter-button" aria-label="Filtros">
+						<span class="material-symbols-outlined">filter</span>
+						<span>Filtros</span>
+					</button>
+					
+					<div class="brand">
+						<img 
+							src="https://www.figma.com/api/mcp/asset/dc0160a0-a4c1-4b5f-bf24-c40e1471873d" 
+							alt="Monster Hunter Codex"
+							width="267"
+							height="200"
+						/>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<main class="monster-content" role="main">
+			<div class="container">
+				<div class="monster-layout">
+					<!-- Left Column -->
+					<div class="monster-left-column">
+						<header class="monster-header">
+							<div class="monster-icon-large">
+								
+							</div>
+							<div class="monster-title-section">
+								<h1 class="monster-title">{monster.name}</h1>
+							</div>
+						</header>
+
+						<div class="monster-description">
+							<p>{monster.description}</p>
+						</div>
+
+						<div class="monster-image-section">
+							<img 
+								src={monster.image || 'https://www.figma.com/api/mcp/asset/e655ce98-4898-493b-8bfa-afb85850d1ff'} 
+								alt={monster.name}
+								class="monster-main-image"
+							/>
+						</div>
+
+						<div class="monster-tags">
+							<div class="monster-type-tag">
+								<span class="type-icon"></span>
+								<span class="type-name">Brute</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Right Column -->
+					<div class="monster-right-column">
+						<div class="tabs-container">
+							<div class="tabs" role="tablist">
+								<button 
+									class="tab is-active" 
+									data-tab="physiology"
+									role="tab"
+									aria-selected="true"
+									aria-controls="tab-content"
+								>
+									Physiology
+								</button>
+								<button 
+									class="tab" 
+									data-tab="habitat"
+									role="tab"
+									aria-selected="false"
+									aria-controls="tab-content"
+								>
+									Habitat
+								</button>
+								<button 
+									class="tab" 
+									data-tab="behavior"
+									role="tab"
+									aria-selected="false"
+									aria-controls="tab-content"
+								>
+									Behavior
+								</button>
+								<button 
+									class="tab" 
+									data-tab="materials"
+									role="tab"
+									aria-selected="false"
+									aria-controls="tab-content"
+								>
+									Materials
+								</button>
+							</div>
+
+							<div class="tab-content" id="tab-content" role="tabpanel">
+								<!-- Physiology Tab Content (Default) -->
+								<div class="tab-pane is-active" data-tab-content="physiology">
+									<div class="monster-info-item">
+										<span class="info-icon"></span>
+										<div class="info-details">
+											<div class="info-title">{monster.name}</div>
+											<div class="info-subtitle">Elder Dragon</div>
+										</div>
+									</div>
+									<div class="monster-info-item">
+										<span class="info-icon"></span>
+										<div class="info-details">
+											<div class="info-title">Colossal</div>
+											<div class="info-subtitle">Titan</div>
+										</div>
+									</div>
+									<div class="monster-info-item">
+										<span class="info-icon"></span>
+										<div class="info-details">
+											<div class="info-title">Fiend</div>
+											<div class="info-subtitle">Demon</div>
+										</div>
+									</div>
+									<div class="monster-info-item">
+										<span class="info-icon"></span>
+										<div class="info-details">
+											<div class="info-title">Wyrm</div>
+											<div class="info-subtitle">Ancient</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Habitat Tab Content -->
+								<div class="tab-pane" data-tab-content="habitat">
+									<div class="monster-info-item">
+										<span class="info-icon">🌲</span>
+										<div class="info-details">
+											<div class="info-title">Ancient Forest</div>
+											<div class="info-subtitle">Floresta antiga com vegetação densa</div>
+										</div>
+									</div>
+									<div class="monster-info-item">
+										<span class="info-icon">🏔️</span>
+										<div class="info-details">
+											<div class="info-title">Elder's Recess</div>
+											<div class="info-subtitle">Área vulcânica com energia elemental</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Behavior Tab Content -->
+								<div class="tab-pane" data-tab-content="behavior">
+									<div class="monster-info-item">
+										<span class="info-icon">⚔️</span>
+										<div class="info-details">
+											<div class="info-title">Agressivo</div>
+											<div class="info-subtitle">Ataca caçadores à vista</div>
+										</div>
+									</div>
+									<div class="monster-info-item">
+										<span class="info-icon">🔥</span>
+										<div class="info-details">
+											<div class="info-title">Elemental</div>
+											<div class="info-subtitle">Usa ataques elementais poderosos</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Materials Tab Content -->
+								<div class="tab-pane" data-tab-content="materials">
+									<div class="materials-list">
+										<h3 class="materials-title">Materiais Obtidos</h3>
+										<ul class="materials-items">
+											{monster.materials.map((material) => (
+												<li class="material-item">{material}</li>
+											))}
+										</ul>
+									</div>
+									<div class="recommended-glaive">
+										<h3 class="glaive-title">Insect Glaive Recomendado</h3>
+										<p class="glaive-name">{monster.recommendedGlaive}</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</Layout>
+
+
+<script>
+</script>

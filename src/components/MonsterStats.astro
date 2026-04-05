@@ -1,0 +1,34 @@
+---
+export interface Props {
+  health_points?: number;
+  sizes?: {
+    min?: number;
+    max?: number;
+    crown?: number;
+  };
+}
+
+const { health_points, sizes } = Astro.props;
+---
+
+<nav class="level w-100 p-1 m-1 columns">
+  <div class="level-item has-text-centered column">
+     <i class="ra ra-heart"></i>
+     <p class="title">{health_points || '-'}</p>
+  </div>
+</nav>
+
+<ul class="is-flex w-100 p-1 m-1 columns">
+  <li class="is-flex is-align-items-center p-1 column">
+    <i class="fas fa-crown mr-1"></i>
+    <p class="stat-value">{'≤' + (sizes?.min || '-')}</p>
+  </li>
+  <li class="is-flex is-align-items-center p-1 column">
+    <i class="fas fa-crown mr-1"></i>
+    <p class="stat-value">{'≥' + (sizes?.max || '-')}</p>
+  </li>
+  <li class="is-flex is-align-items-center p-1 column">
+    <i class="fas fa-crown mr-1"></i>
+    <p class="stat-value">{'W ' + (sizes?.crown || '-')}</p>
+  </li>
+</ul>

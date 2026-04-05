@@ -1,0 +1,92 @@
+---
+export interface Props {
+  armor_set?: {
+    helm?: { name: string };
+    chest?: { name: string };
+    arms?: { name: string };
+    legs?: { name: string };
+    images?: string[];
+  };
+  decorations?: Array<{
+    name: string;
+    icon?: string;
+    level?: number;
+  }>;
+  baseUrl: string;
+  armorPieceIcons: Record<string, string>;
+}
+
+const { armor_set, decorations, baseUrl, armorPieceIcons } = Astro.props;
+---
+
+{armor_set && (
+  <section class="media columns p-1 m-1">
+    <figure class="media-left column is-64x64">
+      <picture class="image is-64x64 has-text-centered">
+        <i class="ra ra-helmet has-text-centered"></i>
+        <legend class="has-text-centered">Set</legend>
+      </picture>
+    </figure>
+    <div class="media-content column">
+      <div class="content is-flex is-justify-content-center is-align-items-center">
+        <ul class="armor-set is-flex p-1 mr-1">
+          {armor_set.helm && (
+            <li class="armor-piece p-1">
+              <span class="icon"><img src={`${baseUrl}${armorPieceIcons['helm']}`} alt="Helm" /></span>
+              <span class="piece-name">{armor_set.helm.name}</span>
+            </li>
+          )}
+          {armor_set.arms && (
+            <li class="armor-piece p-1">
+              <span class="icon"><img src={`${baseUrl}${armorPieceIcons['arms']}`} alt="Arms" /></span>
+              <span class="piece-name">{armor_set.arms.name}</span>
+            </li>
+          )}
+          {armor_set.chest && (
+            <li class="armor-piece p-1">
+              <span class="icon"><img src={`${baseUrl}${armorPieceIcons['chest']}`} alt="Chest" /></span>
+              <span class="piece-name">{armor_set.chest.name}</span>
+            </li>
+          )}
+          {armor_set.legs && (
+            <li class="armor-piece p-1">
+              <span class="icon"><img src={`${baseUrl}${armorPieceIcons['legs']}`} alt="Legs" /></span>
+              <span class="piece-name">{armor_set.legs.name}</span>
+            </li>
+          )}
+        </ul>
+        {armor_set.images && armor_set.images.map((img: string, i: number) => (
+          <figure class="image is-128x128 armor-set-image p-1">
+            <img src={`${baseUrl}${img}`} alt={`Set variation ${i + 1}`} />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+{decorations && decorations.length > 0 && (
+  <section class="media columns p-1 m-1">
+    <figure class="media-left column is-64x64">
+      <picture class="image is-64x64 has-text-centered">
+        <i class="ra ra-gem has-text-centered"></i>
+        <legend class="has-text-centered">Joias</legend>
+      </picture>
+    </figure>
+    <div class="media-content column">
+      <div class="content is-flex is-align-items-center">
+        {decorations.map((dec: any) => (
+          <p class="tag is-black is-medium">
+            {dec.icon && dec.icon.startsWith('ra-') ? (
+              <i class={`ra ${dec.icon} mr-2`}></i>
+            ) : (
+              <img class="icon is-small mr-2" src={`${baseUrl}${dec.icon || '/imgs/decorations/default.png'}`} alt={dec.name} />
+            )}
+            <span>{dec.name}</span>
+            {dec.level && <span class="has-text-grey-light ml-2">Lv{dec.level}</span>}
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

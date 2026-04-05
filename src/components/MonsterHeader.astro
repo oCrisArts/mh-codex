@@ -1,0 +1,32 @@
+---
+export interface Props {
+  name: string;
+  species?: string;
+  type: string;
+  description: string;
+  icon: string;
+  image: string;
+  baseUrl: string;
+}
+
+const { name, species, type, description, icon, image, baseUrl } = Astro.props;
+const asset = (path: string) => `${baseUrl}${path}`;
+---
+
+<div class="column">
+  <div class="is-flex ">
+    <figure class="image is-64x64 monster-icon">
+      <img src={asset(icon)} alt={name} />
+    </figure>
+    <hgroup>
+      <h1 class="title is-2 has-text-white">{name}</h1>
+      <h4 class="tag is-dark">{species || type}</h4>
+    </hgroup>
+  </div>
+  <div class="monster-description">
+    <p class="subtitle is-6 mb-5">{description}</p>
+  </div>
+  <figure class="image is-16by9 monster-main-image">
+    <img class="" src={asset(image)} alt={name} />
+  </figure>
+</div>

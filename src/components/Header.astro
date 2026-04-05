@@ -5,18 +5,25 @@ interface Props {
 }
 
 const { title = "Encontre tudo para a sua caçada.", showVideo = true } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 {showVideo && (
-  <header class="dshunter-header">
-    <div class="dshunter-col">
-      <h1 class="dshunter-title">{title}</h1>
-    </div>
-    <div class="dshunter-col"></div>
-    <div class="dshunter-bg">
-      <video autoplay muted loop playsinline class="dshunter-bg-video">
-        <source src="/videos/bg-video.mp4" type="video/mp4">
-        Seu navegador não suporta vídeos HTML5.
-      </video>
+  <header class="hero is-fullheight video-hero">
+
+    <!-- Video background container -->
+      <div class="hero-video">
+        <video poster={`${baseUrl}/videos/poster.png`} playsinline autoplay muted loop>
+          <source src={`${baseUrl}/videos/bg-video.mp4`} type="video/mp4">
+          <!-- Add other sources for compatibility -->
+        </video>
+      </div>
+      
+      <!-- Optional overlay for darkening the video and ensuring text readability -->
+      <div class="hero-overlay"></div>
+
+    <div class="hero-body">
+      <h1 class="title">{title}</h1>
     </div>
   </header>
 )}

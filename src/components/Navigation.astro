@@ -5,25 +5,111 @@ interface Props {
   searchTerm?: string;
 }
 
-const { showSearch = true, showFilters = true, searchTerm = "Encontrar mostro" } = Astro.props;
+const {
+  showSearch = true,
+  showFilters = true,
+  searchTerm = "Encontrar mostro",
+} = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
-<nav class="dshunter-navbar">
-  {showSearch && (
-    <div class="dshunter-search-bar">
-      <div class="dshunter-search-text">{searchTerm}</div>
-      <div class="dshunter-search-icon">search</div>
+<nav class="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
+  <div class="navbar-menu">
+    <div class="navbar-start is-expanded">
+      {
+        showSearch && (
+          <div class="navbar-item  is-expanded">
+            <div class="field has-addons is-expanded">
+              <div class="control is-expanded">
+                <input
+                  class="input"
+                  type="text"
+                  placeholder="Find a repository"
+                />
+              </div>
+              <div class="control">
+                <button class="button is-transparent">
+                  <span class="material-symbols-outlined">search</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        )
+      }
+
+      {
+        showFilters && (
+          <div class="navbar-item">
+            <button class="button is-transparent filter-button">
+              <span class="dshunter-filter-label">Filtros</span>
+              <span class="material-symbols-outlined">filter</span>
+            </button>
+          </div>
+        )
+      }
     </div>
-  )}
-  
-  {showFilters && (
-    <button class="dshunter-filter-btn">
-      <span class="dshunter-filter-label">Filtros</span>
-      <span class="dshunter-filter-icon">filter</span>
-    </button>
-  )}
-  
-  <div class="dshunter-brand">
-    <img src="/imgs/mh-codex.brand.svg" alt="Monster Hunter Codex" />
+  </div>
+
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://bulma.io">
+      <img class="brand" src={`${baseUrl}/imgs/mh-codex.brand.svg`} alt="Monster Hunter Codex" />
+    </a>
+    <a
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarBasicExample"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 </nav>
+<script>
+  // Navigation functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('.navbar .input');
+    const searchButton = document.querySelector('.navbar .button.is-transparent');
+    const monsterCards = document.querySelectorAll('.monster-card');
+    
+    // Search functionality
+    const performSearch = () => {
+      const searchInputElement = searchInput as HTMLInputElement;
+      const searchTerm = searchInputElement?.value?.toLowerCase() || '';
+      
+      monsterCards.forEach(card => {
+        const cardElement = card as HTMLElement;
+        const monsterName = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+        
+        if (monsterName.includes(searchTerm)) {
+          cardElement.style.display = 'block';
+        } else {
+          cardElement.style.display = 'none';
+        }
+      });
+    };
+    
+    // Search on button click
+    if (searchButton) {
+      searchButton.addEventListener('click', performSearch);
+    }
+    
+    // Search on input change
+    if (searchInput) {
+      const searchInputElement = searchInput as HTMLInputElement;
+      searchInputElement.placeholder = 'Encontrar monstro';
+      
+      searchInput.addEventListener('input', performSearch);
+      searchInput.addEventListener('keyup', (e) => {
+        const keyboardEvent = e as KeyboardEvent;
+        if (keyboardEvent.key === 'Enter') {
+          performSearch();
+        }
+      });
+    }
+  });
+</script>

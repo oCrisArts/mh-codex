@@ -1,0 +1,22 @@
+---
+export interface Props {
+  games: string[];
+  gameLabels: Record<string, string>;
+  gameSubtitles: Record<string, string>;
+}
+
+const { games, gameLabels, gameSubtitles } = Astro.props;
+---
+
+<div class="tabs is-toggle is-fullwidth game-tabs" data-tabs="games">
+  <ul>
+    {games.map((game, index) => (
+      <li class={index === 0 ? "is-active" : ""} data-game={game}>
+        <a>
+          <span class="game-title">{gameLabels[game]}</span>
+          {gameSubtitles[game] && <span class="game-subtitle"> / {gameSubtitles[game]}</span>}
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

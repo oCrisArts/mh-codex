@@ -1,0 +1,38 @@
+---
+export interface Props {
+  weapons?: Array<{
+    name: string;
+    type?: string;
+  }>;
+  weaponIcons?: Record<string, string>;
+}
+
+const { weapons, weaponIcons = {} } = Astro.props;
+---
+
+{weapons && weapons.length > 0 && (
+
+    <div class="columns p-1 m-1">
+      <div class="column">
+        <h4 class="title is-4">Enfrente ele usando</h4>
+      </div>
+    </div>
+    <section class="media columns p-1 m-1">
+      <figure class="media-left column is-64x64">
+        <picture class="image is-64x64 has-text-centered">
+          <i class="ra ra-sword has-text-centered"></i>
+          <legend class="has-text-centered">Armas</legend>
+        </picture>
+      </figure>
+      <div class="media-content column p-1">
+        <div class="content is-flex is-flex-wrap-wrap p-1 m-1">
+          {weapons.map((weapon: any) => (
+            <p class="tag is-medium is-capitalized p-1 m-1">
+              <i class={`ra ra-${weaponIcons[weapon.type] || 'sword'}`}></i>
+              <span class="icon mr-1">{weapon.name}</span>
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+)}

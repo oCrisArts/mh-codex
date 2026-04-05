@@ -1,162 +1,70 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-import Navigation from '../components/Navigation.astro';
-import Header from '../components/Header.astro';
-import MonsterCard from '../components/MonsterCard.astro';
-import FilterPanel from '../components/FilterPanel.astro';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import Navigation from "../components/Navigation.astro";
+import Header from "../components/Header.astro";
+import MonsterCard from "../components/MonsterCard.astro";
+import FilterPanel from "../components/FilterPanel.astro";
 
-// Get monsters from Content Collections
-const monstersEntries = await getCollection('monsters');
-const monsters = monstersEntries.map(m => m.data);
+// Get all monsters from collection
+const allEntries = await getCollection("monsters");
+
+// Simple mapping - avoid complex operations
+const monsters = allEntries.map((entry: any) => ({
+  id: entry.data.id,
+  name: entry.data.name,
+  type: entry.data.type,
+  species: entry.data.species,
+  image: entry.data.image,
+  icon: entry.data.icon,
+  description: entry.data.description,
+  order: entry.data.order || 0,
+  games: entry.data.games || {},
+  slug: entry.slug,
+}));
+
+// Ordenar
+monsters.sort((a: any, b: any) => {
+  if (a.order !== b.order) return a.order - b.order;
+  return a.name.localeCompare(b.name);
+});
+
+// Simple extraction
+const gameSet = new Set<string>();
+const rankSet = new Set<string>();
+
+for (const m of monsters) {
+  for (const game of Object.keys(m.games)) {
+    gameSet.add(game);
+  }
+  for (const gameData of Object.values(m.games)) {
+    if ((gameData as any).rank) {
+      for (const r of (gameData as any).rank) {
+        rankSet.add(r);
+      }
+    }
+  }
+}
+
+const availableGames = Array.from(gameSet);
+const availableRanks = Array.from(rankSet);
 ---
 
-<Layout title="Monster Hunter Codex">
+<Layout title="Monster Hunter Codex">  
+  <Navigation />
+  <Header />
+  <FilterPanel games={availableGames} ranks={availableRanks} />
   <main class="dshunter-home">
-    <!-- Background -->
-    <div class="dshunter-bg-container">
-      <div class="dshunter-bg-fill"></div>
-      <div class="dshunter-bg-video"></div>
-    </div>
-
-    <!-- Header -->
-    <Header />
-
-    <!-- Navigation -->
-    <Navigation />
-
-    <!-- Monster Cards Grid -->
-    <section class="dshunter-article" aria-label="Lista de monstros">
-      {monsters.map((monster) => (
-        <MonsterCard monster={monster} />
-      ))}
+    <section class="section dshunter-article container  is-fluid" aria-label="Lista de monstros">
+      <div class="columns is-multiline" id="monster-grid">
+        {monsters.map((monster) => (
+          <MonsterCard monster={monster} />
+        ))}
+      </div>
     </section>
-
-    <!-- Filter Panel -->
-    <FilterPanel />
   </main>
 </Layout>
 
-<style>
-  @import '../styles/main.scss';
+<style lang="scss">
+  @import "../styles/main.scss";
 </style>
-
-<script>
-  // Filter panel functionality
-  const filterToggle = document.querySelector('.dshunter-filter-btn');
-  const filterPanel = document.getElementById('filterPanel');
-  const panelClose = document.getElementById('panelClose');
-  const overlay = document.querySelector('.dshunter-overlay');
-
-  // State
-  let selectedRank = 'all';
-
-  // Initialize
-  document.addEventListener('DOMContentLoaded', () => {
-    setupEventListeners();
-  });
-
-  // Setup event listeners
-  function setupEventListeners() {
-    // Filter panel toggle
-    filterToggle?.addEventListener('click', openFilterPanel);
-    panelClose?.addEventListener('click', closeFilterPanel);
-    overlay?.addEventListener('click', closeFilterPanel);
-
-    // Rank filter options
-    const rankOptions = document.querySelectorAll('.dshunter-filter-option');
-    rankOptions.forEach(option => {
-      option.addEventListener('click', (e) => {
-        const target = e.currentTarget as HTMLElement;
-        const rank = target.dataset.rank;
-        if (rank) {
-          selectedRank = rank;
-          updateActiveFilters();
-          renderMonsters();
-        }
-      });
-    });
-
-    // Search functionality
-    const searchInput = document.querySelector('.dshunter-search-bar');
-    if (searchInput) {
-      searchInput.addEventListener('click', () => {
-        const prompt = window.prompt('Buscar monstro:');
-        if (prompt) {
-          performSearch(prompt);
-        }
-      });
-    }
-  }
-
-  // Filter panel functions
-  function openFilterPanel() {
-    filterPanel?.classList.add('is-active');
-    overlay?.classList.add('is-active');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeFilterPanel() {
-    filterPanel?.classList.remove('is-active');
-    overlay?.classList.remove('is-active');
-    document.body.style.overflow = '';
-  }
-
-  // Update active filters display
-  function updateActiveFilters() {
-    const activeFiltersContainer = document.querySelector('.dshunter-active-filters');
-    if (!activeFiltersContainer) return;
-
-    activeFiltersContainer.innerHTML = '';
-
-    if (selectedRank !== 'all') {
-      const filterTag = document.createElement('span');
-      filterTag.className = 'dshunter-filter-tag';
-      filterTag.innerHTML = `
-        Rank: ${selectedRank}
-        <button class="dshunter-filter-remove" data-type="rank">×</button>
-      `;
-      activeFiltersContainer.appendChild(filterTag);
-
-      // Add remove event listener
-      const removeBtn = filterTag.querySelector('.dshunter-filter-remove');
-      removeBtn?.addEventListener('click', () => {
-        selectedRank = 'all';
-        updateActiveFilters();
-        renderMonsters();
-      });
-    }
-  }
-
-  // Search functionality
-  function performSearch(query: string) {
-    const searchTerm = query.toLowerCase();
-    const monsterCards = document.querySelectorAll('.dshunter-monster-card');
-    
-    monsterCards.forEach(card => {
-      const monsterName = card.querySelector('.dshunter-monster-name')?.textContent?.toLowerCase() || '';
-      const monsterType = card.querySelector('.dshunter-monster-type')?.textContent?.toLowerCase() || '';
-      
-      if (monsterName.includes(searchTerm) || monsterType.includes(searchTerm)) {
-        (card as HTMLElement).style.display = '';
-      } else {
-        (card as HTMLElement).style.display = 'none';
-      }
-    });
-  }
-
-  // Render monsters based on current filters
-  function renderMonsters() {
-    const monsterCards = document.querySelectorAll('.dshunter-monster-card');
-    
-    monsterCards.forEach(card => {
-      const monsterRank = (card as HTMLElement).dataset.rank;
-      
-      if (selectedRank === 'all' || monsterRank === selectedRank) {
-        (card as HTMLElement).style.display = '';
-      } else {
-        (card as HTMLElement).style.display = 'none';
-      }
-    });
-  }
-</script>
